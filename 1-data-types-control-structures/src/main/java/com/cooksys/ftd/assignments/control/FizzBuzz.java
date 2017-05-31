@@ -26,7 +26,14 @@ public class FizzBuzz {
      * @throws IllegalArgumentException if b is zero
      */
     public static boolean divides(int a, int b) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (b != 0) {
+	        if (a % b == 0) {
+	        	return true;
+	        }
+	        
+	        else return false;
+    	}
+    	return false;
     }
 
     /**
@@ -41,8 +48,24 @@ public class FizzBuzz {
      * @return a message according to the format above, or null if n is not divisible by either 3 or 5
      */
     public static String message(int n) {
-        throw new NotImplementedException();
-    }
+        //String message;
+        int num = n;
+        String message;
+
+    	if (divides(num, 3) && divides(num, 5)) {
+    		message = num + ": Fizzbuzz";
+        	return message;
+        }
+    	else if (divides(num, 3)) {
+    		message = num + ": Fizz";
+        	return message;
+        }
+    	else if (divides(num, 5)) {
+    		message = num + ": Buzz";
+        	return message;
+        }
+    	else return null;
+		}
 
     /**
      * Generates an array of messages to print for a given range of numbers.
@@ -55,7 +78,29 @@ public class FizzBuzz {
      * @throws IllegalArgumentException if the given end is less than the given start
      */
     public static String[] messages(int start, int end) throws IllegalArgumentException {
-        throw new NotImplementedException();
+        int numMess = 0;
+
+    	for (int i = start; i < end; i++) {
+        	if (message(i) != null) {
+        		numMess++;
+        	}	
+        	i++;
+    	}        	
+
+        String[] messArray = new String[numMess];
+        
+    	for (int m = 0; m < messArray.length; m++) {
+        	
+    		for (int i = start; i < end; i++) {
+            	if (message(i) != null) {
+            		messArray[m] = message(i);
+            	}	
+            	i++;
+        }
+    	
+    	//for (messArray)
+    		
+    	return messArray;
     }
 
     /**
@@ -63,7 +108,10 @@ public class FizzBuzz {
      * the relevant messages to sysout
      */
     public static void main(String[] args) {
-        throw new NotImplementedException();
+    	
+        /*for (int i = 1; i <= 115; i++) {
+        	System.out.println(message(i));
+        }*/
     }
 
 }
