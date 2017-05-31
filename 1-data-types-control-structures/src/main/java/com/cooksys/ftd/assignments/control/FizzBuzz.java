@@ -33,7 +33,7 @@ public class FizzBuzz {
 	        
 	        else return false;
     	}
-    	return false;
+    	else throw new IllegalArgumentException();
     }
 
     /**
@@ -50,18 +50,18 @@ public class FizzBuzz {
     public static String message(int n) {
         //String message;
         int num = n;
-        String message;
+        String message = num +": ";
 
     	if (divides(num, 3) && divides(num, 5)) {
-    		message = num + ": Fizzbuzz";
+    		message += "FizzBuzz";
         	return message;
         }
     	else if (divides(num, 3)) {
-    		message = num + ": Fizz";
+    		message += "Fizz";
         	return message;
         }
     	else if (divides(num, 5)) {
-    		message = num + ": Buzz";
+    		message += "Buzz";
         	return message;
         }
     	else return null;
@@ -79,28 +79,27 @@ public class FizzBuzz {
      */
     public static String[] messages(int start, int end) throws IllegalArgumentException {
         int numMess = 0;
+        if (end >= start) {
 
-    	for (int i = start; i < end; i++) {
-        	if (message(i) != null) {
-        		numMess++;
-        	}	
-        	i++;
-    	}        	
-
-        String[] messArray = new String[numMess];
-        
-    	for (int m = 0; m < messArray.length; m++) {
-        	
-    		for (int i = start; i < end; i++) {
-            	if (message(i) != null) {
-            		messArray[m] = message(i);
-            	}	
-            	i++;
+	    	for (int i = start; i < end; i++) {
+	        	if (message(i) != null) {
+	        		numMess++;
+	        	}	
+	    	}        	
+	
+	        String[] messArray = new String[numMess];
+	        int m = 0;
+	        
+	    	for (int i = start; i < end; i++) {
+	        	if (message(i) != null) {
+	        		messArray[m] = message(i);
+	        		m++;
+	        	}	
+	    	}  
+	    		
+	    	return messArray;
         }
-    	
-    	//for (messArray)
-    		
-    	return messArray;
+        else throw new IllegalArgumentException();
     }
 
     /**
@@ -108,10 +107,10 @@ public class FizzBuzz {
      * the relevant messages to sysout
      */
     public static void main(String[] args) {
-    	
-        /*for (int i = 1; i <= 115; i++) {
-        	System.out.println(message(i));
-        }*/
+    	String[] messArray = FizzBuzz.messages(1, 116);
+        for (int i = 0; i < messArray.length; i++) {
+        	System.out.println(messArray[i]);
+        }
     }
 
 }
