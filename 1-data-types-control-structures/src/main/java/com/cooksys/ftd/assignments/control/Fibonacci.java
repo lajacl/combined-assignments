@@ -24,12 +24,27 @@ public class Fibonacci {
      * @throws IllegalArgumentException if the given index is less than zero
      */
     public static int atIndex(int i) throws IllegalArgumentException {
-    	int index = i;
-    	int value = 0; 
-        for (index = 0; index <= index; i++) {
-        	value += i;
-        }
-        return value;
+    	if (i >= 0) {
+
+	    	int value = 1; 
+    		int preValue = 1;
+    		int curValue = 1;
+    		
+
+        	if (i == 0 || i == 1) {
+        		return value;
+        	}
+        	else {
+    		
+	    		for (int x = 2; x <= i; x++) {
+		        		value = preValue + curValue;
+		        		preValue = curValue;
+		        		curValue = value;
+		        }
+        	}
+	        return value;
+    	}
+    	else throw new IllegalArgumentException();
     }
 
     /**
@@ -43,7 +58,21 @@ public class Fibonacci {
      *                                  given end is less than the given start
      */
     public static int[] slice(int start, int end) throws IllegalArgumentException {
-        throw new NotImplementedException();
+        if (start < 0 || end < 0 ||end < start){
+        	throw new IllegalArgumentException();
+        }
+        
+        else {
+        	int sliceSize = end - start;
+        	int[] fibSlice = new int[sliceSize];
+        	int fibInd = 0;
+        	
+        	for (int i = start; i < end; i++) {
+        		fibSlice[fibInd] = atIndex(i);
+        		fibInd ++;
+        	}
+        	return fibSlice;
+        }
     }
 
     /**
