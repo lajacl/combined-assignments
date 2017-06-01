@@ -15,7 +15,9 @@ public class Rational implements IRational {
      * @throws IllegalArgumentException if the given denominator is 0
      */
     public Rational(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (denominator = 0) {
+    		throw new IllegalArgumentException();
+    	}
     }
 
     /**

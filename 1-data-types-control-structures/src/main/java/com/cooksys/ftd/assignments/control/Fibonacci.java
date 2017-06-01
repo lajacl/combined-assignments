@@ -83,6 +83,11 @@ public class Fibonacci {
      * @throws IllegalArgumentException if the given count is negative
      */
     public static int[] fibonacci(int count) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (count < 0) {
+    		throw new IllegalArgumentException();
+    	}
+    	else {
+        	return slice(0, count);
+    	}
     }
 }
