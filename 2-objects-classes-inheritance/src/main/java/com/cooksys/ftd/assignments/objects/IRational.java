@@ -49,7 +49,7 @@ interface IRational {
      * @throws IllegalStateException if the numerator of this rational value is 0
      */
     default IRational invert() throws IllegalStateException {
-        throw new NotImplementedException();
+        throw new NotImplementedException();+
     }
 
     /**

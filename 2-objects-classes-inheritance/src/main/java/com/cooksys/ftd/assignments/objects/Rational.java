@@ -3,6 +3,9 @@ package com.cooksys.ftd.assignments.objects;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Rational implements IRational {
+	int numerator;
+	int denominator;
+	
     /**
      * Constructor for rational values of the type:
      * <p>
@@ -14,9 +17,13 @@ public class Rational implements IRational {
      * @param denominator the denominator of the rational value
      * @throws IllegalArgumentException if the given denominator is 0
      */
-    public Rational(int numerator, int denominator) throws IllegalArgumentException {
-    	if (denominator = 0) {
+    public Rational(int num, int den) throws IllegalArgumentException {
+    	if (den == 0) {
     		throw new IllegalArgumentException();
+    	}
+    	else {
+    		numerator = num;
+    		denominator = den;
     	}
     }
 
@@ -25,7 +32,7 @@ public class Rational implements IRational {
      */
     @Override
     public int getNumerator() {
-        throw new NotImplementedException();
+        return numerator;
     }
 
     /**
@@ -33,7 +40,7 @@ public class Rational implements IRational {
      */
     @Override
     public int getDenominator() {
-        throw new NotImplementedException();
+        return denominator;
     }
 
     /**
@@ -49,7 +56,12 @@ public class Rational implements IRational {
      */
     @Override
     public Rational construct(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (denominator == 0) {
+    		throw new IllegalArgumentException();
+    	}
+    	else {
+    		return new Rational(numerator, denominator);
+    	}
     }
 
     /**
@@ -60,7 +72,8 @@ public class Rational implements IRational {
      */
     @Override
     public boolean equals(Object obj) {
-        throw new NotImplementedException();
+    	
+        return obj.equals(new Rational(numerator,denominator));
     }
 
     /**
@@ -72,6 +85,11 @@ public class Rational implements IRational {
      */
     @Override
     public String toString() {
-        throw new NotImplementedException();
+        if ((numerator < 0 || denominator < 0) && (numerator < 0 && denominator < 0)) {
+        	return "-" + numerator + "/" + denominator;
+        }
+        else {
+        	return numerator + "/" + denominator;
+        }
     }
 }
