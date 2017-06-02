@@ -36,7 +36,7 @@ interface IRational {
      * @return the negation of this
      */
     default IRational negate() {
-        throw new NotImplementedException();
+    	return new Rational (-this.getNumerator(), this.getDenominator());
     }
 
     /**
