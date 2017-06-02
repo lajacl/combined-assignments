@@ -8,8 +8,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.*;
 
 public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
-	ArrayList<Capitalist> capArray = new ArrayList<Capitalist>();
-
+	//ArrayList<Capitalist> capArray = new ArrayList<Capitalist>();
+	Map<Capitalist, FatCat> mapCaps = new HashMap<Capitalist, FatCat>();
     /**
      * Adds a given element to the hierarchy.
      * <p>
@@ -30,10 +30,16 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean add(Capitalist capitalist) {
-    	
-    	capArray.add(capitalist);
-    	//return false
-    	//else return true
+    	if (mapCaps.containsKey(capitalist)) {
+    		return false;
+    	}
+    	else if (capitalist.hasParent()) {
+    		mapCaps.put(capitalist, capitalist.getParent());
+    	}
+    	else if ((!capitalist.hasParent()) && (!mapCaps.containsValue(capitalist))) {
+    		return false;
+    	}
+    	return true;
     }
 
     /**
@@ -42,7 +48,10 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean has(Capitalist capitalist) {
-        throw new NotImplementedException();
+        if (mapCaps.containsKey(capitalist) || mapCaps.containsValue(capitalist)) {
+        	return true;
+        }
+        else return false;
     }
 
     /**
@@ -51,7 +60,9 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public Set<Capitalist> getElements() {
-        throw new NotImplementedException();
+    	//Set<Capitalist> setCaps = new HashSet<Capitalist>();    	
+    	Set<Capitalist> setCaps = mapCaps.keySet();    	
+    	return setCaps;
     }
 
     /**
