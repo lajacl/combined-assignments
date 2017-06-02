@@ -1,5 +1,7 @@
 package com.cooksys.ftd.assignments.objects;
 
+import static org.junit.Assert.assertEquals;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Rational implements IRational {
@@ -88,20 +90,9 @@ public class Rational implements IRational {
      */
     @Override
     public String toString() {
-    	int numPos;
-    	int denPos;
-        if ((numerator < 0 || denominator < 0) && (numerator >= 0 || denominator >= 0)) {
-        	if (numerator < 0) {
-        		numPos = (numerator * -1);
-            	return "-" + numPos + "/" + denominator;
-        	}
-        	else {
-        		denPos = (denominator * -1);
-            	return "-" + numerator + "/" + denPos;
-        	}
-        }
-        else {
-        	return numerator + "/" + denominator;
-        }
+        int n = this.getNumerator();
+        int d = this.getDenominator();
+
+        return (n < 0 != d < 0 ? "-" : "") + Math.abs(n) + "/" + Math.abs(d);
     }
 }
