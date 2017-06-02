@@ -1,7 +1,5 @@
 package com.cooksys.ftd.assignments.objects;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 interface IRational {
 
     /**
@@ -72,8 +70,12 @@ interface IRational {
     		throw new IllegalArgumentException();
     	}
     	else {
-    	return new Rational((this.getNumerator() * that.getDenominator()) + (that.getNumerator() * this.getDenominator()), 
-    			(this.getDenominator() * that.getDenominator()));
+            int n1 = this.getNumerator();
+            int d1 = this.getDenominator();
+            int n2 = that.getNumerator();
+            int d2 = that.getDenominator();
+            
+            return new Rational(((n1 * d2) + (n2 * d1)), (d1 * d2));
     	}
 	}
 
@@ -92,8 +94,12 @@ interface IRational {
     		throw new IllegalArgumentException();
     	}
     	else {
-    		return new Rational(((this.getNumerator() * that.getDenominator()) - (that.getNumerator() * this.getDenominator())), 
-    				(this.getDenominator() * that.getDenominator()));
+            int n1 = this.getNumerator();
+            int d1 = this.getDenominator();
+            int n2 = that.getNumerator();
+            int d2 = that.getDenominator();
+            
+    		return new Rational(((n1 * d2) - (n2 * d1)), (d1 * d2));
     	}
     }
 
@@ -112,7 +118,12 @@ interface IRational {
     		throw new IllegalArgumentException();
     	}
     	else {
-    		return new Rational((this.getNumerator() * that.getNumerator()), (this.getDenominator() * that.getDenominator()));
+            int n1 = this.getNumerator();
+            int d1 = this.getDenominator();
+            int n2 = that.getNumerator();
+            int d2 = that.getDenominator();
+            
+    		return new Rational((n1 * n2), (d1 * d2));
     	}
     }
 
@@ -131,7 +142,12 @@ interface IRational {
     		throw new IllegalArgumentException();
     	}
     	else {
-    		return new Rational((this.getNumerator() * that.getDenominator()), (this.getDenominator() * that.getNumerator()));
+            int n1 = this.getNumerator();
+            int d1 = this.getDenominator();
+            int n2 = that.getNumerator();
+            int d2 = that.getDenominator();
+            
+    		return new Rational((n1 * d2), (d1 * n2));
     	}
     }
 }

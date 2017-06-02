@@ -1,9 +1,5 @@
 package com.cooksys.ftd.assignments.objects;
 
-import static org.junit.Assert.assertEquals;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Rational implements IRational {
 	private int numerator;
 	private int denominator;
