@@ -3,8 +3,8 @@ package com.cooksys.ftd.assignments.objects;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Rational implements IRational {
-	int numerator;
-	int denominator;
+	private int numerator;
+	private int denominator;
 	
     /**
      * Constructor for rational values of the type:
@@ -71,9 +71,12 @@ public class Rational implements IRational {
      * false otherwise
      */
     @Override
-    public boolean equals(Object obj) {
-    	
-        return obj.equals(new Rational(numerator,denominator));
+    public boolean equals(Object obj) { 
+        if ((obj instanceof Rational) && (this.getNumerator()==((Rational)obj).getNumerator()) 
+        		&& (this.getDenominator()==((Rational)obj).getDenominator())) {
+        	return true;
+        }
+        else return false;
     }
 
     /**
@@ -85,8 +88,17 @@ public class Rational implements IRational {
      */
     @Override
     public String toString() {
-        if ((numerator < 0 || denominator < 0) && (numerator < 0 && denominator < 0)) {
-        	return "-" + numerator + "/" + denominator;
+    	int numPos;
+    	int denPos;
+        if ((numerator < 0 || denominator < 0) && (numerator >= 0 || denominator >= 0)) {
+        	if (numerator < 0) {
+        		numPos = (numerator * -1);
+            	return "-" + numPos + "/" + denominator;
+        	}
+        	else {
+        		denPos = (denominator * -1);
+            	return "-" + numerator + "/" + denPos;
+        	}
         }
         else {
         	return numerator + "/" + denominator;

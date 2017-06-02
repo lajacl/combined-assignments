@@ -8,6 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.*;
 
 public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
+	ArrayList<Capitalist> capArray = new ArrayList<Capitalist>();
 
     /**
      * Adds a given element to the hierarchy.
@@ -29,7 +30,10 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean add(Capitalist capitalist) {
-        throw new NotImplementedException();
+    	
+    	capArray.add(capitalist);
+    	//return false
+    	//else return true
     }
 
     /**
