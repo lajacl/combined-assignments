@@ -9,7 +9,7 @@ import java.util.*;
 
 public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
 	//ArrayList<Capitalist> capArray = new ArrayList<Capitalist>();
-	Map<Capitalist, FatCat> mapCaps = new HashMap<Capitalist, FatCat>();
+	Map<Capitalist, FatCat> capMap = new HashMap<Capitalist, FatCat>();
     /**
      * Adds a given element to the hierarchy.
      * <p>
@@ -30,13 +30,13 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean add(Capitalist capitalist) {
-    	if (mapCaps.containsKey(capitalist)) {
+    	if (capMap.containsKey(capitalist)) {
     		return false;
     	}
     	else if (capitalist.hasParent()) {
-    		mapCaps.put(capitalist, capitalist.getParent());
+    		capMap.put(capitalist, capitalist.getParent());
     	}
-    	else if ((!capitalist.hasParent()) && (!mapCaps.containsValue(capitalist))) {
+    	else if ((!capitalist.hasParent()) && (!capMap.containsValue(capitalist))) {
     		return false;
     	}
     	return true;
@@ -48,7 +48,7 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean has(Capitalist capitalist) {
-        if (mapCaps.containsKey(capitalist) || mapCaps.containsValue(capitalist)) {
+        if (capMap.containsKey(capitalist) || capMap.containsValue(capitalist)) {
         	return true;
         }
         else return false;
@@ -61,8 +61,8 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
     @Override
     public Set<Capitalist> getElements() {
     	//Set<Capitalist> setCaps = new HashSet<Capitalist>();    	
-    	Set<Capitalist> setCaps = mapCaps.keySet();    	
-    	return setCaps;
+    	Set<Capitalist> capSet = capMap.keySet();    	
+    	return capSet;
     }
 
     /**
@@ -70,8 +70,12 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      * or an empty set if no parents have been added to the hierarchy
      */
     @Override
-    public Set<FatCat> getParents() {
-        throw new NotImplementedException();
+    public Set<FatCat> getParents() {  
+    	if (capMap.isEmpty()) {
+    		return new HashSet<FatCat>();
+    	}
+    	Set<FatCat> parentSet = (Set<FatCat>)capMap.values();    	
+    	return parentSet;
     }
 
     /**
