@@ -59,8 +59,7 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      * or an empty set if no elements have been added to the hierarchy
      */
     @Override
-    public Set<Capitalist> getElements() {
-    	//Set<Capitalist> setCaps = new HashSet<Capitalist>();    	
+    public Set<Capitalist> getElements() {    	
     	Set<Capitalist> capSet = capMap.keySet();    	
     	return capSet;
     }
@@ -85,8 +84,22 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      * for the given parent
      */
     @Override
-    public Set<Capitalist> getChildren(FatCat fatCat) {
-        throw new NotImplementedException();
+    public Set<Capitalist> getChildren(FatCat fatCat) {  
+    	if (!capMap.containsValue(fatCat)) {
+    		return new HashSet<Capitalist>();
+    	}
+    	
+    	else{
+    		Set<Capitalist> childrenSet = null;
+    		
+			for (Map.Entry<Capitalist, FatCat> entry : capMap.entrySet()) {
+				if (entry.getValue().equals(fatCat)) {
+				    childrenSet.add(entry.getKey());
+				    //System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+				}
+			}			    	
+	    	return childrenSet;
+    	}
     }
 
     /**
