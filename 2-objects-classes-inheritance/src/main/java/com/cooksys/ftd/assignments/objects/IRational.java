@@ -49,7 +49,12 @@ interface IRational {
      * @throws IllegalStateException if the numerator of this rational value is 0
      */
     default IRational invert() throws IllegalStateException {
-        throw new NotImplementedException();
+    	if (this.getNumerator() == 0) {
+    		throw new IllegalStateException();
+    	}
+    	else {
+    		return new Rational(this.getDenominator(), this.getNumerator());
+    	}
     }
 
     /**
@@ -67,7 +72,8 @@ interface IRational {
     		throw new IllegalArgumentException();
     	}
     	else {
-    	return new Rational((this.getNumerator() * that.getDenominator()) + (that.getNumerator() * this.getDenominator()), (this.getDenominator() * that.getDenominator()));
+    	return new Rational((this.getNumerator() * that.getDenominator()) + (that.getNumerator() * this.getDenominator()), 
+    			(this.getDenominator() * that.getDenominator()));
     	}
 	}
 
