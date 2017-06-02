@@ -60,8 +60,7 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public Set<Capitalist> getElements() {    	
-    	Set<Capitalist> capSet = capMap.keySet();    	
-    	return capSet;
+    	return capMap.keySet();    	
     }
 
     /**
@@ -109,7 +108,11 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public Map<FatCat, Set<Capitalist>> getHierarchy() {
-        throw new NotImplementedException();
+    	Map<FatCat, Set<Capitalist>> parentMap = new HashMap<FatCat, Set<Capitalist>>();
+    	for (FatCat parent : this.getParents()) {
+    			parentMap.put(parent, getChildren(parent));
+    	}
+    	return parentMap;
     }
 
     /**
