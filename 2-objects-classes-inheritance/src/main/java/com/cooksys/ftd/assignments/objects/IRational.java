@@ -88,7 +88,13 @@ interface IRational {
      * @throws IllegalArgumentException if that is null
      */
     default IRational sub(IRational that) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (that == null) {
+    		throw new IllegalArgumentException();
+    	}
+    	else {
+    		return new Rational(((this.getNumerator() * that.getDenominator()) - (that.getNumerator() * this.getDenominator())), 
+    				(this.getDenominator() * that.getDenominator()));
+    	}
     }
 
     /**
