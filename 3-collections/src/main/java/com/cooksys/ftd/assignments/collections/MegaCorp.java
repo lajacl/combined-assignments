@@ -3,13 +3,16 @@ package com.cooksys.ftd.assignments.collections;
 import com.cooksys.ftd.assignments.collections.hierarchy.Hierarchy;
 import com.cooksys.ftd.assignments.collections.model.Capitalist;
 import com.cooksys.ftd.assignments.collections.model.FatCat;
+import com.cooksys.ftd.assignments.collections.model.WageSlave;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
 public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
-
-	Map<Capitalist, FatCat> capMap = new HashMap<Capitalist, FatCat>();
+	  
+	Set<Capitalist> capSet = new HashSet<Capitalist>();
+	//Map<Capitalist, FatCat> capMap = new HashMap<Capitalist, FatCat>();
     /**
      * Adds a given element to the hierarchy.
      * <p>
@@ -30,20 +33,27 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean add(Capitalist capitalist) {
-    	if (capMap.containsKey(capitalist)) {
+    	if (capitalist == null){
+    		return false;
+    	}
+    	else if (has(capitalist)) {
     		return false;
     	}
     	else if (capitalist.hasParent()) {
-    		capMap.put(capitalist, capitalist.getParent());
-    	}
-    	else if (capitalist instanceof FatCat){
-    		capMap.put(capitalist, capitalist.getParent());
+    		if (!capSet.contains(capitalist.getParent())) {
+    			capSet.add(capitalist.getParent());
+    		}
+    		capSet.add(capitalist);
     		return true;
     	}
-    	else if ((!capitalist.hasParent()) && (!capMap.containsValue(capitalist))) {
+    	else if ((!capitalist.hasParent()) && (capitalist instanceof FatCat) && (getChildren((FatCat)capitalist)) != null) {
+    		capSet.add(capitalist);
+    		return true;
+    	}
+    	else if ((!capitalist.hasParent()) && (capitalist instanceof WageSlave)) {
     		return false;
     	}
-    	return true;
+    	else return true;
     }
 
     /**
@@ -52,7 +62,7 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public boolean has(Capitalist capitalist) {
-        if (capMap.containsKey(capitalist) || capMap.containsValue(capitalist)) {
+    	if (capSet.contains(capitalist)) {
         	return true;
         }
         else return false;
@@ -63,8 +73,8 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      * or an empty set if no elements have been added to the hierarchy
      */
     @Override
-    public Set<Capitalist> getElements() {    	
-    	return capMap.keySet();    	
+    public Set<Capitalist> getElements() {
+    	return capSet;
     }
 
     /**
@@ -72,12 +82,18 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      * or an empty set if no parents have been added to the hierarchy
      */
     @Override
-    public Set<FatCat> getParents() {  
-    	if (capMap.isEmpty()) {
-    		return new HashSet<FatCat>();
+    public Set<FatCat> getParents() { 
+    	Set<FatCat> parentSet = new HashSet<FatCat>();
+    	if (capSet.isEmpty()) {
+    		return parentSet;
+    	}  	
+    	else {
+    		for (Capitalist cap : capSet) {
+    			if ((cap.hasParent()) && (!parentSet.contains(cap.getParent())))
+    			parentSet.add(cap.getParent());
+    		}
+    		return parentSet;
     	}
-    	Set<FatCat> parentSet = (Set<FatCat>)capMap.values();    	
-    	return parentSet;
     }
 
     /**
@@ -88,22 +104,17 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public Set<Capitalist> getChildren(FatCat fatCat) {  
-    	if (!capMap.containsValue(fatCat)) {
-    		return new HashSet<Capitalist>();
-    	}
-    	
-    	else{
-    		Set<Capitalist> childSet = new HashSet<Capitalist>();
-    		
-			for (Map.Entry<Capitalist, FatCat> entry : capMap.entrySet()) {
-				if (entry.getValue().equals(fatCat)) {
-				    childSet.add(entry.getKey());
-				    //System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+		Set<Capitalist> childSet = new HashSet<Capitalist>();
+		
+		if (fatCat != null)
+			for (Capitalist cap : capSet) {
+				if (cap.getParent() == fatCat) {
+				childSet.add(cap);
 				}
-			}			    	
-	    	return childSet;
-    	}
-    }
+			}
+
+			return childSet;	
+		}
 
     /**
      * @return a map in which the keys represent the parent elements in the hierarchy,
@@ -112,11 +123,12 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
      */
     @Override
     public Map<FatCat, Set<Capitalist>> getHierarchy() {
-    	Map<FatCat, Set<Capitalist>> parentMap = new HashMap<FatCat, Set<Capitalist>>();
-    	for (FatCat parent : this.getParents()) {
-    			parentMap.put(parent, getChildren(parent));
+    	Map<FatCat, Set<Capitalist>> hierarchyMap = new HashMap<FatCat, Set<Capitalist>>();
+    	
+    	for (FatCat parent : getParents()) {
+    			hierarchyMap.put(parent, getChildren(parent));
     	}
-    	return parentMap;
+    	return hierarchyMap;
     }
 
     /**
@@ -143,4 +155,5 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
 	    		return catList;
     	}
     }
+    
 }
