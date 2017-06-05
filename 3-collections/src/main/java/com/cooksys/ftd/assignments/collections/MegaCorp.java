@@ -38,13 +38,14 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
     		return false;
     	}
     	else if (capitalist.hasParent()) {
-    		Capitalist currCap = capitalist;
+    		Capitalist currCap = capitalist.getParent();
             while (currCap != null) {
-        		if (!has(currCap.getParent())) {
-    			capSet.add(currCap.getParent());
+            	if (!capSet.contains(currCap)) {
+            		capSet.add(currCap);
+            	}
     			currCap = currCap.getParent();
-        		}
     		}
+            //capSet.add(capitalist.getParent());
     		capSet.add(capitalist);
     		return true;
     	}
@@ -130,10 +131,12 @@ public class MegaCorp implements Hierarchy<Capitalist, FatCat> {
     public Map<FatCat, Set<Capitalist>> getHierarchy() {
     	Map<FatCat, Set<Capitalist>> hierarchyMap = new HashMap<FatCat, Set<Capitalist>>();
     	
-    	for (FatCat parent : getParents()) {
-    			hierarchyMap.put(parent, getChildren(parent));
-    	}
-    	return hierarchyMap;
+	    	for (FatCat parent : getParents()) {
+	    		if (!getChildren(parent).isEmpty()) {
+	    			hierarchyMap.put(parent, getChildren(parent));
+	    		}
+	    	}
+	    	return hierarchyMap;
     }
 
     /**

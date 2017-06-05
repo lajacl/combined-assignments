@@ -1,1 +1,5 @@
-<config/>
+<config>
+	<local>"localhost"</local>
+	<remote>111</remote>
+	<student-file-path>config/student.xml</student-file-path>
+</config>
