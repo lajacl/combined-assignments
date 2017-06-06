@@ -1,5 +1,5 @@
 <student firstName="LaVette" lastName="Clifton">
-<favorite-ide>"Eclipse"</favorite-ide>
-<favorite-language>"Java"</favorite-language>
-<favorite-paradigm>"To Thine Own Self Be True"</favorite-paradigm>
+<favorite-ide>Eclipse</favorite-ide>
+<favorite-language>Java</favorite-language>
+<favorite-paradigm>Object-Oriented Programming</favorite-paradigm>
 </student>

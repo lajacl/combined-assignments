@@ -1,5 +1,9 @@
 package com.cooksys.ftd.assignments.socket.model;
 
+import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
@@ -69,5 +73,22 @@ public class Student {
                 ", favoriteLanguage='" + favoriteLanguage + '\'' +
                 ", favoriteParadigm='" + favoriteParadigm + '\'' +
                 '}';
+    }
+    
+
+    public static void main(String[] args) {
+        try {  
+        	   
+            File file = new File("C:/Users/ftd-7/code/combined-assignments/5-socket-io-serialization/config/student.xml");  
+            JAXBContext jaxbContext = JAXBContext.newInstance(Student.class);  
+       
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
+            Student student= (Student) jaxbUnmarshaller.unmarshal(file);  
+              
+            System.out.println(student.toString());  
+       
+          } catch (JAXBException e) {  
+            e.printStackTrace();  
+          } 
     }
 }
