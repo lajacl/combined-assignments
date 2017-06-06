@@ -1,5 +1,10 @@
 package com.cooksys.ftd.assignments.socket.model;
 
+import java.io.File;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,5 +44,21 @@ public class Config {
 
     public void setStudentFilePath(String studentFilePath) {
         this.studentFilePath = studentFilePath;
+    }
+    
+    public static void main(String[] args) {
+        try {  
+        	   
+            File file = new File("C:/Users/ftd-7/code/combined-assignments/5-socket-io-serialization/config/config.xml");  
+            JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);  
+       
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
+            Config config= (Config) jaxbUnmarshaller.unmarshal(file);  
+              
+            System.out.println("Local- port: " + config.getLocal().getPort() + "\nRemote- host: " + config.getRemote().getHost() + " port: " + config.getRemote().getPort() + "\nStudent File path: " + config.getStudentFilePath());  
+       
+          } catch (JAXBException e) {  
+            e.printStackTrace();  
+          } 
     }
 }
